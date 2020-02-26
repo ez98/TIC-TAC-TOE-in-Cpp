@@ -13,8 +13,8 @@ bool draw;
 bool _play_again = false;
 
 char board[3][3] = { { '1', '2', '3' }, //created a 3x3 array matrix
-		     { '4', '5', '6' },
-		     { '7', '8', '9' } };
+		      { '4', '5', '6' },
+		      { '7', '8', '9' } };
 		/*
 		==============Board Index Locations===============
 		   { '0-0', '0-1', '0-2' },
