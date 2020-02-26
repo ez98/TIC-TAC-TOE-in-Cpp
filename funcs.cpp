@@ -12,18 +12,18 @@ int row, column{};
 bool draw;
 bool _play_again = false;
 
-char board[3][3] = { { '1', '2', '3' },
-					 { '4', '5', '6' },
-					 { '7', '8', '9' } };
+char board[3][3] = { { '1', '2', '3' }, //created a 3x3 array matrix
+		     { '4', '5', '6' },
+		     { '7', '8', '9' } };
 		/*
 		==============Board Index Locations===============
-					 { '0-0', '0-1', '0-2' },
-					 { '1-0', '1-1', '1-2' },
-					 { '2-0', '2-1', '2-2' }
+		   { '0-0', '0-1', '0-2' },
+	  	   { '1-0', '1-1', '1-2' },
+		   { '2-0', '2-1', '2-2' }
 		==================================================
 		*/
 
-void const print_board()
+void const print_board() //prints board using a nested for loop
 {
 	cout << "		_________________" << endl;
 	for (int i = 0; i < 3; i++) {
@@ -38,7 +38,7 @@ void const print_board()
 
 };
 
-char rand_assign() {
+char rand_assign() { //this func assigns a random character. rand_int can only come out to be 0 OR 1
 	srand(time(0));
 	int rand_int = rand() % 2;
 	if (rand_int == 0) {
@@ -51,16 +51,13 @@ char rand_assign() {
 	}
 }
 
-void make_move() {
+void make_move() { // This func handles the current player and the players move and validates whether the spot is available or not.
+		   // If the spot is available, then we use a switch to handle the move and assign the index location on the matrix
 	if (turn != 'X' && turn != 'O')
 		turn = rand_assign();
 	if (turn == 'X') {
 		cout << "Player X Go!: ";
 		choice = get_choice();
-		//while (choice == 0) {
-		//	cout << "Must be a number on the board!" << endl;
-		//	choice = get_choice();
-		//}
 		cout << "\n";
 	}
 	else if (turn == 'O') {
@@ -80,7 +77,7 @@ void make_move() {
 	case 9: {row = 2; column = 2; break; }
 	default: {cout << "Invalid Choice!" << endl;}
 	}
-	if (turn == 'X' && board[row][column] != 'X' && board[row][column] != 'O')
+	if (turn == 'X' && board[row][column] != 'X' && board[row][column] != 'O') //Handles move and validates available space
 	{
 		board[row][column] = 'X';
 		print_board();
@@ -101,8 +98,8 @@ void make_move() {
 	
 }
 
-bool playingGame() {
-	//Check for Win
+bool playingGame() { //this func runs everytime a player makes a move. It checks for player wins, or tie games. Also checks if player 
+	             //wants to play again
 	if (_play_again) {
 		_play_again = false;
 		return true;
@@ -130,7 +127,7 @@ bool playingGame() {
 	}
 }
 
-bool player_O_won() {
+bool player_O_won() { // scans through each possible win combinations
 	if (board[0][0] == 'O' && board[0][1] == 'O' && board[0][2] == 'O') //Top Row
 		return true;
 	if (board[1][0] == 'O' && board[1][1] == 'O' && board[1][2] == 'O') //Middle Row
@@ -172,27 +169,23 @@ bool player_X_won() {
 		return false; 
 }
 
-bool check_for_draw() {
-	//char _board[3][3] = {{ '1', '2', '3' },
-	//				     { '4', '5', '6' },
-	//				     { '7', '8', '9' } };
+bool check_for_draw() { //Checks if all spaces are occupied by X OR O by updating a counter variable 'space_used'
 	int space_used{}; 
 	for (int i = 0; i < 3; i++) {
 		for (int j = 0; j < 3; j++) {
 			if (board[i][j] == 'X' || board[i][j] == 'O') {
 				space_used += 1;
 				continue; 
-				//Check entire board to see if no more space
 			}
 		}
 	}
-	if (space_used == 9)
+	if (space_used == 9) 
 		return true;
 	else
 		return false;
 }
 
-int get_choice() {
+int get_choice() { //this func handles the player's board choice and makes sure the player ONLY choose a int 1-9.
 	int i;
 	cin >> i;
 	while (cin.fail() || i == 0 || i > 9) {
@@ -204,7 +197,7 @@ int get_choice() {
 	return i;
 }
 
-bool play_again() {
+bool play_again() { //Play Again Function runs after a win or draw
 	char user_choice{};
 	cout << "Would you like to play again? (Y/N): " << endl;
 	cin >> user_choice;
@@ -216,7 +209,7 @@ bool play_again() {
 		return false;
 	}
 }
-void clear_board(int x, int y)
+void clear_board(int x, int y) //this func runs if a player chooses to play again. Prints an empty board.
 {
 
 	for (int x = 0; x < 3; x++) {
