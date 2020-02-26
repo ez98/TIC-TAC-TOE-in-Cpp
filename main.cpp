@@ -14,9 +14,8 @@ int main() {
 	cout << "\t         -Created by Eric" << endl;
 	cout << "\t             03/25/2020" << endl;
 	print_board();
-	 //clear board but not print
 	while (in_game) {
-		if (counter > 0)
+		if (counter > 0) //true when user decides to play again.
 			print_board();
 		while (playingGame()) 
 		{
@@ -25,7 +24,7 @@ int main() {
 
 		if (play_again()) 
 		{
-			playingGame();
+			playingGame(); //this func runs here because it contain an if-statement that checks to see if a user wants to continue to play
 			clear_board();
 			counter += 1;
 		}
